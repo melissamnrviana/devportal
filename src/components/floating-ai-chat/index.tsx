@@ -25,12 +25,18 @@ export const FloatingAIChat: React.FC = () => {
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [sessionId] = useState(() => crypto.randomUUID());
+  const [isMounted, setIsMounted] = useState(false);
   const router = useRouter();
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const apiClient = new AIPlatformAPI(
     process.env.NEXT_PUBLIC_AI_PLATFORM_URL || 'http://localhost:8000'
   );
+
+  // Only mount on client side
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -54,28 +60,30 @@ export const FloatingAIChat: React.FC = () => {
         section = pathSegments[1] ? pathSegments[1].replace('-', ' ') : 'Documentation';
         title = pathSegments.slice(1).join(' > ').replace(/-/g, ' ');
         
-        // Try to extract page content and headings from the DOM
-        const mainContent = document.querySelector('[data-testid="article-content"]') || 
-                           document.querySelector('main') ||
-                           document.querySelector('.article-content') ||
-                           document.querySelector('article');
-        
-        if (mainContent) {
-          const textContent = mainContent.textContent || '';
-          // Get first 800 characters as context
-          content = textContent.substring(0, 800).trim();
+        // Try to extract page content and headings from the DOM (client-side only)
+        if (isMounted && typeof window !== 'undefined' && document) {
+          const mainContent = document.querySelector('[data-testid="article-content"]') || 
+                             document.querySelector('main') ||
+                             document.querySelector('.article-content') ||
+                             document.querySelector('article');
           
-          // Extract headings for better context
-          const headingElements = mainContent.querySelectorAll('h1, h2, h3, h4');
-          headingElements.forEach(heading => {
-            const text = heading.textContent?.trim();
-            if (text) headings.push(text);
-          });
-        }
-        
-        // Also try to get the document title
-        if (document.title && document.title !== 'VTEX Developer Portal') {
-          title = document.title;
+          if (mainContent) {
+            const textContent = mainContent.textContent || '';
+            // Get first 800 characters as context
+            content = textContent.substring(0, 800).trim();
+            
+            // Extract headings for better context
+            const headingElements = mainContent.querySelectorAll('h1, h2, h3, h4');
+            headingElements.forEach(heading => {
+              const text = heading.textContent?.trim();
+              if (text) headings.push(text);
+            });
+          }
+          
+          // Also try to get the document title
+          if (document.title && document.title !== 'VTEX Developer Portal') {
+            title = document.title;
+          }
         }
       } else {
         section = pathSegments[0].replace('-', ' ');
@@ -156,6 +164,11 @@ export const FloatingAIChat: React.FC = () => {
   const toggleChat = () => {
     setIsOpen(!isOpen);
   };
+
+  // Don't render on server-side
+  if (!isMounted) {
+    return null;
+  }
 
   return (
     <Box sx={styles.container}>

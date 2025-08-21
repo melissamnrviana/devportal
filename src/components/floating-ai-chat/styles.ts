@@ -5,15 +5,15 @@ const container: SxStyleProp = {
   bottom: '20px',
   right: '20px',
   zIndex: 9999,
-  display: ['flex', 'flex', 'flex', 'flex', 'none'], // Hide on xl screens where desktop version is visible
+  display: 'flex', // Show on all screen sizes
   flexDirection: 'column',
   alignItems: 'flex-end',
 };
 
 const chatWindow: SxStyleProp = {
-  width: ['calc(100vw - 40px)', '400px'],
-  height: ['calc(100vh - 120px)', '500px'],
-  maxWidth: '400px',
+  width: ['calc(100vw - 40px)', '400px', '400px', '450px'], // Slightly larger on desktop
+  height: ['calc(100vh - 120px)', '500px', '500px', '550px'], // Slightly taller on desktop
+  maxWidth: '450px',
   backgroundColor: 'white',
   borderRadius: '12px',
   border: '1px solid #E7E9EE',

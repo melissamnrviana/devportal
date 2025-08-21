@@ -11,7 +11,6 @@ import { DocumentationTitle, UpdatesTitle } from 'utils/typings/unionTypes'
 import Script from 'next/script'
 import { documentationData, updatesData } from 'utils/constants'
 import FloatingAIChat from 'components/floating-ai-chat'
-import DesktopAIChat from 'components/desktop-ai-chat'
 
 interface Props {
   sidebarfallback: any //eslint-disable-line
@@ -76,7 +75,6 @@ export default function Layout({
         </Flex>
         <Footer />
         <FloatingAIChat />
-        <DesktopAIChat />
       </LibraryContextProvider>
     </ThemeProvider>
   )
