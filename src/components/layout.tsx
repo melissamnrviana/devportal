@@ -10,6 +10,8 @@ import { Sidebar, LibraryContextProvider } from '@vtexdocs/components'
 import { DocumentationTitle, UpdatesTitle } from 'utils/typings/unionTypes'
 import Script from 'next/script'
 import { documentationData, updatesData } from 'utils/constants'
+import FloatingAIChat from 'components/floating-ai-chat'
+import DesktopAIChat from 'components/desktop-ai-chat'
 
 interface Props {
   sidebarfallback: any //eslint-disable-line
@@ -73,6 +75,8 @@ export default function Layout({
           <Box sx={styles.mainContainer}>{children}</Box>
         </Flex>
         <Footer />
+        <FloatingAIChat />
+        <DesktopAIChat />
       </LibraryContextProvider>
     </ThemeProvider>
   )
