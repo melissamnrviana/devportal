@@ -4,6 +4,7 @@ import { Box, Flex, Text, Button } from '@vtex/brand-ui';
 import AIPlatformAPI from '../../utils/services/ai-platform-api';
 import { MessageRequest, MessageResponse } from '../../utils/typings/ai-platform';
 import styles from './styles';
+import FormattedMessage from './FormattedMessage';
 
 interface ChatMessage {
   role: 'user' | 'assistant';
@@ -205,7 +206,11 @@ export const FloatingAIChat: React.FC = () => {
                 sx={styles.messageContainer(message.role)}
               >
                 <Box sx={styles.message(message.role)}>
-                  <Text sx={styles.messageContent}>{message.content}</Text>
+                  {message.role === 'assistant' ? (
+                    <FormattedMessage content={message.content} />
+                  ) : (
+                    <Text sx={styles.messageContent}>{message.content}</Text>
+                  )}
                   <Text sx={styles.messageTimestamp}>
                     {message.timestamp.toLocaleTimeString()}
                   </Text>

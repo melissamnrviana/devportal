@@ -61,7 +61,21 @@ const messagesContainer: SxStyleProp = {
   padding: '16px',
   display: 'flex',
   flexDirection: 'column',
-  gap: '12px',
+  gap: '16px', // Increased gap for better readability
+  // Improved scrollbar styling
+  '&::-webkit-scrollbar': {
+    width: '4px',
+  },
+  '&::-webkit-scrollbar-track': {
+    background: '#F8F9FA',
+  },
+  '&::-webkit-scrollbar-thumb': {
+    background: '#E7E9EE',
+    borderRadius: '2px',
+  },
+  '&::-webkit-scrollbar-thumb:hover': {
+    background: '#A1A8B3',
+  },
 };
 
 const welcomeMessage: SxStyleProp = {
@@ -92,12 +106,16 @@ const messageContainer = (role: 'user' | 'assistant'): SxStyleProp => ({
 });
 
 const message = (role: 'user' | 'assistant'): SxStyleProp => ({
-  maxWidth: '80%',
+  maxWidth: role === 'assistant' ? '95%' : '80%', // Give more space for formatted assistant messages
   padding: '12px 16px',
   borderRadius: role === 'user' ? '16px 16px 4px 16px' : '16px 16px 16px 4px',
-  backgroundColor: role === 'user' ? '#E31C58' : '#F8F9FA',
+  backgroundColor: role === 'user' ? '#E31C58' : '#FFFFFF',
   color: role === 'user' ? 'white' : '#142032',
   wordBreak: 'break-word',
+  overflow: 'hidden',
+  width: 'fit-content',
+  border: role === 'assistant' ? '1px solid #E7E9EE' : 'none',
+  boxShadow: role === 'assistant' ? '0 1px 3px rgba(0, 0, 0, 0.05)' : 'none',
 });
 
 const messageContent: SxStyleProp = {
