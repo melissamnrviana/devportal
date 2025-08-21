@@ -7,6 +7,7 @@ export type DocumentationTitle =
   | 'Storefront Development'
   | 'VTEX IO Apps'
   | 'Troubleshooting'
+  | 'AI Doc Assistant'
 
 export type UpdatesTitle = 'Release Notes' | 'Documentation Updates'
 

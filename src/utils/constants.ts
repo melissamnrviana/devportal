@@ -76,6 +76,14 @@ export const documentationData: DocDataElement[] = [
     description: messages['troubleshooting.description'],
     link: '/docs/troubleshooting',
   },
+  {
+    id: 'AI Doc Assistant',
+    Icon: TroubleshootingIcon,
+    title: 'AI Doc Assistant',
+    description: messages['troubleshooting.description'],
+    link: '/ai-assistant',
+  }
+  
 ]
 
 export const officialVendors = ['vtex', 'vtexarg', 'vtexventures', 'vtexus']
